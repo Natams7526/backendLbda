@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>bk-lbda</artifactId>
+	<artifactId>backend-lbda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bk-lbda</name>
+	<name>backend-lbda</name>
 	<description>api bk for grand app</description>
 	<properties>
 		<java.version>17</java.version>

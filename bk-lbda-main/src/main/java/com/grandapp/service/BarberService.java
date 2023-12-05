@@ -15,5 +15,9 @@ public interface BarberService {
 
 	public Optional<BarberModel> findById(Long id) throws Exception;
 	
+	public Optional<BarberModel> deleteById(Long id) throws Exception;
+	
 	List<BarberModel> findAll() throws Exception;
+
+	public BarberModel update(BarberModel barber)throws Exception;
 }
