@@ -127,7 +127,7 @@ public class ClientServiceTest {
 	}
 
 	@Test
-	public void testUpdateClienteNoExistente() {
+	public void testUpdateClienteNoExistente() throws Exception {
 		// Datos de prueba
 		Long clientId = 1L;
 		ClientModel clientMock = new ClientModel(1L, "Nombre Existente", "987654321", "email.existente@example.com",

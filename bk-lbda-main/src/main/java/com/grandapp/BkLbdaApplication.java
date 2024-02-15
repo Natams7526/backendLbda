@@ -12,8 +12,7 @@ public class BkLbdaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BkLbdaApplication.class, args);
-		
-
 	}
+
 
 }

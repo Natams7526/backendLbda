@@ -99,12 +99,46 @@ public class ClientController {
 
 		return new ResponseEntity<>(response, status);
 	}
+	
+	/**
+	 * Este método se encarga de traer un cliente buscado por Phone
+	 * 
+	 * @param phone String Es el parametro que pertenece al cliente y debe ser unico.
+	 * @return Clientmodel
+	 */
+	@GetMapping("/find-client-x-Phone/{phone}")
+	private ResponseEntity<GeneralResponse<ClientModel>> findByPhone(@PathVariable("phone") String phone) {
+		GeneralResponse<ClientModel> response = new GeneralResponse<>();
+		HttpStatus status = null;
+
+		try {
+			ClientModel data = clientService.existsByPhone(phone);
+			response.setSuccess(true);
+			response.setData(data);
+			status = HttpStatus.OK;
+			if (data == null) {
+				response.setMessage("El cliente con telefono" + phone + " no existe");
+				log.info("El Cliente con telefono: " + phone + " no Existe!");
+
+			}
+			log.info("findByPhone Ejecutado con Éxito >>" + phone);
+
+		} catch (Exception e) {
+			response.setMessage(e.getMessage());
+			response.setSuccess(false);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			log.error("findByPhone Fallido >>" + e);
+		}
+
+		return new ResponseEntity<>(response, status);
+	}
 
 	/**
 	 * Metodo para crear Cliente
 	 * 
 	 * @param ClientModel client - Es el objeto cliente
 	 * @return <Clientmodel>
+	 
 	 */
 	@PostMapping
 	private ResponseEntity<GeneralResponse<ClientModel>> save(@RequestBody ClientModel client) {
@@ -135,6 +169,7 @@ public class ClientController {
 	 * 
 	 * @param Long id - ClientModel client - Es el objeto cliente
 	 * @return <Clientmodel>
+	 
 	 */
 	@PutMapping("/{id}")
 	private ResponseEntity<GeneralResponse<ClientModel>> update(@PathVariable("id") Long id,

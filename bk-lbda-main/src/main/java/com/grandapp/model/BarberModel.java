@@ -30,4 +30,10 @@ public class BarberModel implements Serializable {
 	@Column(nullable = false)
 	private String phone;
 	
+	@Column(nullable = true, length = 1500)
+	private String image_url;
+	
+	@Column(nullable = true)
+	private String color;
+	
 }

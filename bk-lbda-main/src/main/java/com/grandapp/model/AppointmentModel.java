@@ -1,7 +1,7 @@
 package com.grandapp.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -27,10 +27,7 @@ public class AppointmentModel implements Serializable {
     private Long id;
 
     @Column(name = "time_start")
-    private Date timeStart;
-
-    @Column(name = "time_end")
-    private Date timeEnd;
+    private LocalDateTime timeStart;
 
     @ManyToOne
     @JoinColumn(name = "barber_id")

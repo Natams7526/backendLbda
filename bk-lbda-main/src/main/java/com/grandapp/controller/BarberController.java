@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,14 +32,13 @@ public class BarberController {
 	private BarberService barberService;
 
 	/**
-	 * Metodo para crear Cliente
+	 * Metodo para crear Barbero 
 	 * 
-	 * @param BarberModel client - Es el objeto cliente
+	 * @param BarberModel client - Es el objeto barber
 	 * @return <BarberModel>
 	 */
 	@PostMapping
 	private ResponseEntity<GeneralResponse<BarberModel>> save(@RequestBody BarberModel client) {
-
 		GeneralResponse<BarberModel> response = new GeneralResponse<>();
 		HttpStatus status = null;
 
@@ -62,29 +60,8 @@ public class BarberController {
 		}
 		return new ResponseEntity<>(response, status);
 	}
-	
-	@PutMapping
-	private ResponseEntity<GeneralResponse<BarberModel>> update(@RequestBody BarberModel barber) {
-		GeneralResponse<BarberModel> response = new GeneralResponse<>();
-		HttpStatus status = null;
-		try {
-			BarberModel data =  barberService.update(barber);
-			
-			response.setSuccess(true);
-			response.setMessage("Actualizado con exito");
-			response.setData(data);
-			status = HttpStatus.OK;
-			
-		} catch (Exception e) {
-			response.setMessage(e.getMessage());
-			response.setSuccess(false);
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-		
-		return new ResponseEntity<>(response, status);
-		
-	}
 
+	
 	/**
 	 * Este método se encarga de traer un cliente buscado por ID
 	 * 
@@ -133,7 +110,6 @@ public class BarberController {
 			List<BarberModel> data = barberService.findAll();
 			response.setSuccess(true);
 			response.setData(data);
-			response.setMessage("Ejecucion Exitosa");
 			status = HttpStatus.OK;
 			log.info("findAll Ejecutado con Éxito");
 		} catch (Exception e) {
@@ -145,37 +121,38 @@ public class BarberController {
 
 		return new ResponseEntity<>(response, status);
 	}
-	
+
 	//metodo para eliminar registro barbero
 	
-	@DeleteMapping("/{id}")
-	private ResponseEntity<GeneralResponse<BarberModel>> delete(@PathVariable("id") Long id) {
+		@DeleteMapping("/{id}")
+		private ResponseEntity<GeneralResponse<BarberModel>> delete(@PathVariable("id") Long id) {
 
-		GeneralResponse<BarberModel> response = new GeneralResponse<>();
-		HttpStatus status = null;
-		try {
-			BarberModel data = barberService.deleteById(id).get();
-			response.setMessage("Barbero eliminado correctamente");
-			response.setData(data);
-			response.setSuccess(true);
-			status = HttpStatus.OK;
-			log.info("Delete barber executed successfully");
+			GeneralResponse<BarberModel> response = new GeneralResponse<>();
+			HttpStatus status = null;
+			try {
+				BarberModel data = barberService.deleteById(id).get();
+				response.setMessage("Barbero eliminado correctamente");
+				response.setData(data);
+				response.setSuccess(true);
+				status = HttpStatus.OK;
+				log.info("Delete barber executed successfully");
 
-		} catch (OperationNotAllowedException e) {
-			response.setMessage(e.getMessage());
-			response.setSuccess(false);
-			status = HttpStatus.NOT_FOUND;
-		} catch (Exception e) {
-			log.info("Error delete client" + e);
-			response.setMessage(e.getMessage());
-			response.setSuccess(false);
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-			log.error("error generado " + e.getMessage());
+			} catch (OperationNotAllowedException e) {
+				response.setMessage(e.getMessage());
+				response.setSuccess(false);
+				status = HttpStatus.NOT_FOUND;
+			} catch (Exception e) {
+				log.info("Error delete client" + e);
+				response.setMessage(e.getMessage());
+				response.setSuccess(false);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+				log.error("error generado " + e.getMessage());
+			}
+			return new ResponseEntity<>(response, status);
+
 		}
-		return new ResponseEntity<>(response, status);
-
-	}
-
+	
+	
 	// metodo para validar si el servicio esta arriba
 	@GetMapping("/test")
 	private String saludar() {

@@ -27,11 +27,10 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public ClientModel save(ClientModel client) throws Exception {
-//		clientRepository.findById(client.getId()).isPresent() 
-		if (existsByPhone(client.getPhone())) {
+		if ( existsByPhone(client.getPhone())!= null) {
 			throw new Exception("El numero de contacto ya esta en uso: " + client.getPhone());
 		}
-		client.setStatus(client.isStatus() ? true : false);
+		client.setStatus(true);
 		return clientRepository.save(client);
 	}
 
@@ -56,27 +55,28 @@ public class ClientServiceImpl implements ClientService {
 		try {
 			clientRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new OperationNotAllowedException("No se encontro Client!");
+			throw new OperationNotAllowedException("No se encontro Client!" + e);
 		}
 
 	}
 
-	@Override
-	public Boolean existsByPhone(String phone) {
+	public ClientModel existsByPhone(String phone) throws Exception {
 		try {
-
-			return clientRepository.existsByPhone(phone);
+			return clientRepository.findByPhone(phone);
 
 		} catch (Exception e) {
-
-			return false;
+			throw new Exception("Error en buscar cliente por phone: " + e);
 		}
-
 	}
 
 	@Override
-	public Optional<ClientModel> findById(Long id) {
-		return clientRepository.findById(id);
+	public Optional<ClientModel> findById(Long id) throws Exception {
+		try {
+			return clientRepository.findById(id);
+
+		} catch (Exception e) {
+			throw new Exception("Error en buscar cliente por Id: " + e);
+		}
 	}
 
 }

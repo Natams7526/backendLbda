@@ -2,10 +2,7 @@ package com.grandapp.response;
 
 import java.io.Serializable;
 
-/**
 
- *
- */
 public class GeneralResponse<T> implements Serializable {
 	/**
 	 * 

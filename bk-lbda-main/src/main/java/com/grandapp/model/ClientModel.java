@@ -35,14 +35,6 @@ public class ClientModel implements Serializable {
 	private String email;
 
 	@Column
-	// (columnDefinition = "boolean default true")
 	private boolean status;
-
-//	public Boolean getStatus() {
-//		return status;
-//	}
-
-//	@Column
-//	private String sharedKey;
 
 }

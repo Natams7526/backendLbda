@@ -1,9 +1,7 @@
 package com.grandapp.response;
 
 import java.io.Serializable;
-/*
 
- */
 
 public class ApiError implements Serializable {
 

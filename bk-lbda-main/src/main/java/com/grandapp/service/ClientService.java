@@ -8,10 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import com.grandapp.model.ClientModel;
 
-/**
-
- * */
-
 public interface ClientService {
 
 	
@@ -25,7 +21,7 @@ public interface ClientService {
 	
 	public Optional<ClientModel> findById(Long id) throws Exception;
 	
-	public Boolean existsByPhone(String phone) throws Exception;
-
+	public ClientModel existsByPhone(String phone) throws Exception;
+	
 
 }
